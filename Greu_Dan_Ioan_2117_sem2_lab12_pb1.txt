@@ -1,0 +1,35 @@
+//1. Scrieţi un program C++ în care afişaţi diferite valori în zecimal, octal şi hexazecimal.Afişaţi
+//valorile aliniate la dreapta, respectiv la stânga într - un câmp de afişare cu dimensiunea 15.
+//Utilizaţi manipulatorul setfill() pentru stabilirea caracterului de umplere şi metodele width()
+//şi precision() pentru stabilirea dimensiunii câmpului de afişare şi a preciziei.
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+using namespace std;
+const int dim = 15;
+int main() {
+	cout.width(dim);
+	cout.fill('*');
+	cout.setf(ios::right);
+	std::cout.unsetf(std::ios::floatfield);
+    std:cout.precision(8);
+	cout << 123.33 << '\n';
+	cout.unsetf(ios::right);
+	cout.unsetf(ios::dec);
+	cout.width(dim);
+	cout.setf(ios_base::hex);
+	cout.fill('*');
+	cout.setf(ios::left);
+	cout << 123 << '\n';
+	cout.unsetf(ios::hex);
+	cout.width(dim);
+	cout.setf(ios::showpos | ios::showbase);
+	cout.fill('*');
+	cout.setf(ios::left);
+	cout << 10 << ' ' << -10 << '\n';
+	cout.setf(ios::oct);
+	cout.width(dim);
+	cout.fill('*');
+	cout << 5556 << '\n';
+	cout.unsetf(ios::right);
+	return 0;
+}

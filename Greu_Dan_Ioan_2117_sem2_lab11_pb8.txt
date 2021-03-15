@@ -1,0 +1,236 @@
+//8. Considerați clasa Fractie care are doua atribute întregi protected a si b pentru numărător si
+//numitor, doua metode de tip set() respectiv get() pentru fiecare din atributele clasei.Declarați
+//o metoda publica simplifica() care simplifica un obiect Fractie.Definiti un constructor
+//explicit fara parametri care initializeaza a cu 0 si b cu 1, si un constructor explicit cu doi
+//parametri care va putea fi apelat daca se verifica posibilitatea definirii unei fractii(b != 0).
+//Supraîncărcați operatorii de adunare, scadere, inmultire si impartire(+, -, *, / ) a fracțiilor
+//folosind metode membre care si simplifica daca e cazul rezultatele obtinute, apeland metoda
+//simplifica() din clasa.Definiți o clasa Fractie_ext derivata public din Fractie, care va avea un
+//constructor cu parametrii(ce apelează constructorul din clasa de baza).Supraîncărcați
+//operatorii de incrementare si decrementare prefixați care aduna / scade valoarea 1 la un obiect
+//de tip Fractie_ext cu metode membre.
+//Instanțiați doua obiecte de tip Fractie fără parametrii.Setați atributele obiectelor cu date citite
+//de la tastatura.Afișați atributele inițiale ale obiectelor si noile atribute definite.Efectuați
+//operațiile implementate prin metodele membre, inițializând alte 4 obiecte cu rezultatele
+//obținute.Simplificați si afișați rezultatele.Instanțiați doua obiecte de tip Fractie_ext cu date
+//citite de la tastatura.Efectuați operațiile disponibile clasei, asignând rezultatele obținute la alte
+//obiecte Fracti_ext.Simplificați si afișați rezultatele
+//8. Considerați clasa Fractie care are doua atribute întregi protected a si b pentru numărător si
+//numitor, doua metode de tip set() respectiv get() pentru atributele clasei.Declarați o metoda
+//virtuala simplifica() care simplifica un obiect Fractie folosind cmmdc - ul determinat prin
+//operatorul % .Definiți un constructor explicit fără parametri care inițializează a cu 0 si b cu 1,
+//si un constructor explicit cu doi parametri care va putea fi apelat daca se verifica posibilitatea
+//definirii unei fracții(b != 0).Supraîncărcați operatorii de adunare, scadere, inmultire si
+//impartire(+, -, *, / ) a fracțiilor folosind functii friend care si simplifica daca e cazul rezultatele
+//obtinute, apeland metoda simplifica() din clasa.Definiți o clasa Fractie_ext derivata public
+//din Fractie, care va avea un constructor cu parametrii(ce apelează constructorul din clasa de
+//    baza) si redefinește metoda simplifica() folosind pentru cmmmdc algoritmul prin diferența.
+//    Afișați un mesaj adecvat in metoda.Definiți de asemenea supraîncărcarea operatorilor
+//    compuși de asignare si adunare, scadere, inmultire si impartire(+=, -=, *=, /=) cu metode
+//    membre.Supraîncărcați operatorii de incrementare si decrementare postfixați care
+//    aduna / scade valoarea 1 la un obiect de tip Fractie_ext cu metode membre.
+//    Instanțiați doua obiecte de tip Fractie fără parametrii.Setați atributele obiectelor cu date citite
+//   de la tastatura.Afișați atributele inițiale ale obiectelor si noile atribute definite.Efectuați
+ //   operațiile implementate prin functiile friend din clasa de baza, inițializând alte 4 obiecte cu
+ //   rezultatele obținute.Simplificați si afișați rezultatele.Instanțiați doua obiecte de tip
+//    Fractie_ext cu date citite de la tastatura.Efectuați operațiile implementate prin metodele
+ //   clasei, asignând rezultatele obținute la alte 4 obiecte Fracti_ext.Folosiți pentru operații copii
+//    ale obiectelor inițiale.Simplificați si afișați rezultatele.Verificați posibilitatea utilizării celor
+//    doua metode de tip simplifica() (din clasa de baza si derivata) folosind instanțe din clasa de
+//    baza si derivata folosind un pointer catre clasa de baza Fractie
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include<stdlib.h>
+using namespace std;
+class Fractie {
+protected:int a, b;
+public:
+    Fractie();
+    Fractie(int n, int n1);
+    void setx(int n);
+    void sety(int n);
+    int getx();
+    int gety();
+    Fractie(const Fractie& a);
+    void simplifica(Fractie x);
+    Fractie& operator-=(Fractie& a);
+    Fractie& operator*=(Fractie& a);
+    Fractie& operator/=(Fractie& a);
+    Fractie& operator+=(Fractie& a);
+    friend Fractie operator-(Fractie& a,Fractie& b);
+    friend Fractie operator*(Fractie& a,Fractie& b);
+    friend Fractie operator/(Fractie& a,Fractie& b);
+    friend Fractie operator+(Fractie& a,Fractie& b);
+};
+Fractie operator*(Fractie& a, Fractie& b) {
+    Fractie x;
+    x.a = b.a * a.a;
+    x.b = b.b * a.b;
+    x.simplifica(x);
+    return x;
+}
+Fractie operator/(Fractie& a, Fractie& b) {
+    Fractie x;
+    x.a = a.a * b.b;
+    x.b = a.b * b.a;
+    x.simplifica(x);
+    return x;
+}
+Fractie operator+(Fractie& a, Fractie& b) {
+    Fractie x;
+    x.a = b.a + a.a;
+    x.b = b.b + a.b;
+    x.simplifica(x);
+    return x;
+}
+Fractie operator-(Fractie& a, Fractie& b) {
+    Fractie x;
+    x.a = b.a - a.a;
+    x.b = b.b - a.b;
+    x.simplifica(x);
+    return x;
+}
+class Fractie_ext :public Fractie {
+public:
+    Fractie_ext(int x, int y) :Fractie(x, y) {}
+    void simplifica();
+    Fractie_ext& operator--();
+    Fractie_ext& operator++();
+};
+Fractie::Fractie(const Fractie& c) {
+    a = c.a;
+    b = c.b;
+}
+void Fractie::setx(int n) {
+    a = n;
+}
+void Fractie::sety(int n) {
+    b = n;
+}
+int Fractie::gety() {
+    return b;
+}
+int Fractie::getx() {
+    return a;
+}
+Fractie::Fractie() {
+    a = 0;
+    b = 1;
+}
+Fractie::Fractie(int n, int n1) {
+    a = n;
+    b = n1;
+    if (b == 0) cin >> b;
+}
+void  Fractie::simplifica(Fractie x) {
+    while (a != b) {
+        if (a > b) a = a - b;
+        else b = b - a;
+   }
+}
+Fractie& Fractie::operator+=(Fractie& a) {
+    Fractie x;
+    this->a += this->a + a.a;
+    this->b += this->b + a.b;
+    return *this;
+}
+Fractie_ext& Fractie_ext::operator--() {
+    this->a = this->a - this->b;
+    return *this;
+}
+Fractie& Fractie::operator-=(Fractie& a) {
+    Fractie x;
+    if (a.b > b) {
+        x.a = this->a - a.a;
+        x.b = this->b - a.b;
+    }
+    x.a = this->a - a.b;
+    x.b = this->b - a.b;
+    return x;
+
+}
+Fractie_ext& Fractie_ext::operator++() {
+    this->a = this->a + this->b;
+    return *this;
+}
+Fractie& Fractie::operator*=(Fractie& a) {
+    Fractie x;
+    x.a = a.a * this->a;
+    x.b = a.b * this->b;
+    return x;
+}
+Fractie& Fractie::operator/=(Fractie& a) {
+    Fractie x;
+    if (a.b > this->b) {
+        x.a = this->a / a.a;
+        x.b = this->b / a.b;
+    }
+    return x;
+}
+int main() {
+    Fractie ob1, ob2;
+    int n, n1;
+    cin >> n >> n1;
+    ob1.setx(n);
+    ob1.sety(n1);
+    cin >> n >> n1;
+    ob2.setx(n);
+    ob2.sety(n1);
+    Fractie obx(ob1), oby(ob2);
+    cout << "Obiectele copiate" << endl;
+    cout << obx.getx() << endl << obx.gety() << endl;
+    cout << oby.getx() << endl << oby.gety() << endl;
+    cout << "Operatia de +" << endl;
+    Fractie ob3, ob4, ob5, ob6;
+    ob3 = ob1.operator+=(ob2);
+    cout << ob3.getx() << endl << ob3.gety() << endl;
+    cout << "Operatia de -" << endl;
+    ob4 = ob1.operator-=(ob2);
+    cout << ob4.getx() << endl << ob4.gety() << endl;
+    ob5 = ob1.operator*=(ob2);
+    cout << "Operatia de *" << endl;
+    cout << ob5.getx() << endl << ob5.gety() << endl;
+    ob6 = ob1.operator/=(ob2);
+    cout << "Operatia de /" << endl;
+    cout << ob6.getx() << endl << ob6.gety() << endl;
+    cout << "introduceti valori pentru fractia derivata: " << endl;
+    int m;
+    cin >> n >> m;
+    Fractie_ext o1(n, m);
+    cout << "introduceti valori pentru fractia derivata: " << endl;
+    cin >> n >> m;
+    Fractie_ext o2(n, m);
+    cout << "Operatia de +" << endl;
+    ob3 = o1.operator+=(o2);
+    cout << ob3.getx() << endl << ob3.gety() << endl;
+    cout << "Operatia de -" << endl;
+    ob4 = o1.operator-=(o2);
+    cout << ob4.getx() << endl << ob4.gety() << endl;
+    ob5 = o1.operator*=(o2);
+    cout << "Operatia de *" << endl;
+    cout << ob5.getx() << endl << ob5.gety() << endl;
+    ob6 = o1.operator/=(o2);
+    cout << "Operatia de /" << endl;
+    cout << ob6.getx() << endl << ob6.gety() << endl;
+    Fractie_ext o3(ob3.getx(), ob3.gety()), o4(ob4.getx(), ob4.gety()), o5(ob5.getx(), ob5.gety()), o6(ob6.getx(), ob6.gety());
+    cout << "Operatile ++" << endl;
+    o3.operator++();
+    cout << o3.getx() << "/" << o3.gety() << endl;
+    o4.operator++();
+    cout << o4.getx() << "/" << o4.gety() << endl;
+    o5.operator++();
+    cout << o5.getx() << "/" << o5.gety() << endl;
+    o6.operator++();
+    cout << o6.getx() << "/" << o6.gety() << endl;
+    cout << "Operatile --" << endl;
+    o3.operator--();
+    cout << o3.getx() << "/" << o3.gety() << endl;
+    o4.operator--();
+    cout << o4.getx() << "/" << o4.gety() << endl;
+    o5.operator--();
+    cout << o5.getx() << "/" << o5.gety() << endl;
+    o6.operator--();
+    cout << o6.getx() << "/" << o6.gety() << endl;
+}

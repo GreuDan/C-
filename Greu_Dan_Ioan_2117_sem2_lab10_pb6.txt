@@ -1,0 +1,94 @@
+//6. Definiţi o clasă numită Forme care defineste o figura geometrica cu un nume ca si atribut de
+//tip pointer la un sir de caractere.Derivati in mod public o clasa Cerc cu un constructor
+//adecvat(nume, raza) si metode care calculeaza aria si perimetrul cercului de raza r, valoare
+//introdusa in main() de la tastatura.Similar definiti o clasa Patrat si Dreptunghi care permit
+//determinarea ariei si perimetrului obiectelor specifice.Instantiati obiecte din clasele derivate si
+//afisati aria si perimetrul obiectelor.Datele specifice vor fi introduse de la tastatura.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<stdio.h>
+#include<string.h>
+#define PHI 3.14
+using namespace std;
+class forme {
+protected:
+	char* s;
+public:
+};
+class cerc:public forme {
+	float r;
+public:
+	cerc(const char*, float);
+	float perimetru();
+	float aria();
+};
+float cerc::aria() {
+	return PHI * r *r / 2.0;
+}
+float cerc::perimetru() {
+	return 2 * PHI * r;
+}
+cerc::cerc(const char* a,float b){
+	s = new char[strlen(a)];
+	strcpy(s, a);
+	r = b;
+}
+class patrat :public forme {
+	float a, r;
+public:
+	patrat(const char*, float a1);
+	float aria();
+	float perimetru();
+};
+patrat::patrat(const char* a, float a1) {
+	s = new char[strlen(a)];
+	strcpy(s, a);
+	r = a1;
+}
+float patrat::aria() {
+	return r * r;
+}
+float patrat::perimetru() {
+	return 4 * r;
+}
+class dreptunghi :public forme {
+	float a, b;
+public:
+	dreptunghi(const char*, float a, float b);
+	float aria();
+	float perimetru();
+
+};
+dreptunghi::dreptunghi(const char* s1, float a1, float a2) {
+	s = new char[strlen(s1)];
+	strcpy(s, s1);
+	a = a1;
+	b = a2;
+}
+float dreptunghi::aria() {
+	return a * b;
+}
+float dreptunghi::perimetru() {
+	return 2 * a + 2 * b;
+}
+int main() {
+	forme a;
+	float n;
+	cout << "introduceti raza cercului: "<<endl;
+	cin >> n;
+	cerc o1("cerc", n);
+	cout << o1.aria() << endl;
+	cout << o1.perimetru()<<endl;
+	cout << "introduceti latura patrat: " << endl;
+	cin >> n;
+	patrat o2("patrat", n);
+	cout << o2.aria() << endl;
+	cout << o2.perimetru() << endl;
+	cout << "introduceti datele dreptunghiului: " << endl;
+	int m;
+	cin >> n >> m;
+	dreptunghi o3("dreptunghi", n, m);
+	cout << o3.aria()<<endl;
+	cout << o3.perimetru() << endl;
+
+}

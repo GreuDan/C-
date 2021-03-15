@@ -1,0 +1,22 @@
+//13. Scrieți un program care să calculeze în mod recursiv și în mod nerecursiv valoarea seriei
+//armonice sn = 1 / 1 + 1 / 2 + 1 / 3 + …1 / n, unde n este un număr natural, cu două funcții diferite.
+//Apelați cele două funcții cu diferite valori ale lui n.
+#include<iostream>
+#include<fstream>
+#include<stdio.h>
+#include<string.h>
+using namespace std;
+float baza(int);
+int main()
+{
+	float n;
+	cin >> n;
+	cout<<baza(n);
+}
+float baza(int n)
+{
+	if (n >= 1) return (float)(1.0 / n) + baza(n - 1);
+	else return 0;
+}
+
+	

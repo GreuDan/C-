@@ -1,0 +1,66 @@
+//4. Scrieţi o aplicaţie C/C++ in care plecând de la două şiruri de numere naturale să se obţină un al treilea şir care
+să conţină toate elementele şirurilor sursă fără a se repeta, aranjate în ordine crescătoare
+#include<iostream>
+#include<fstream>
+#include<stdio.h>
+#include<string.h>
+using namespace std;
+void bb(int* p, int& n,int& nr);
+int compare(const void *a,const void* b);
+int main()
+{
+	int n,n1,a[100],a1[100],*p,*p2,*p1,nr=0;
+	p = &a[0];
+	p2 = &a1[0];
+	cin >> n>>n1;
+	p1 = (int*)malloc((n + n1) * sizeof(int));
+	for (int i = 0; i < n; i++)
+		cin >> a[i];
+	for (int i = 0; i < n1; i++)
+		cin >> a1[i];
+	bb(p, n,nr);
+	nr = 0;
+	for (int i = 0; i < n; i++)
+		cout << *(p + i) << " ";
+	cout << endl;
+	bb(p2, n1, nr);
+	nr = 0;
+	for (int i = 0; i < n1; i++)
+		cout << *(p2 + i) << " ";
+	cout << endl;
+	for (int i = 0; i < n; i++)
+	{
+		p1[i] = a[i];
+	}
+	for (int i = 0; i < n1; i++)
+	{
+		p1[n + i] = a1[i];
+	}
+	int b = n + n1;
+	bb(p1, b, nr);
+	for (int i = 0; i < b; i++)
+		cout << *(p1+i)<<" ";
+}
+void bb(int* p, int& n,int& nr) {
+	for(int i=0;i<n;i++)
+		for (int j = n - 1; j > i; j--)
+		{
+			if (p[j-1] >p[j]){
+				int aux =p[j - 1];
+				p[j-1] = p [j];
+				p[j] = aux;
+			}
+			
+		}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++)
+		{
+			if (p[i] == p[j] && i!=j) {
+				p[j] = p[i+1];
+				i++;
+				nr++;
+			}
+		}
+	}
+	n=n-nr;
+}

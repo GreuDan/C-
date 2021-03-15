@@ -1,0 +1,27 @@
+//11. Considerați un număr n întreg în baza 10 introdus de la tastatură. Folosind o funcție recursivă
+//convertiți valoarea n într - o altă bază de numerație 1 < b < 10 citită de la tastatură.
+#include<iostream>
+#include<fstream>
+#include<stdio.h>
+#include<string.h>
+using namespace std;
+int baza(int, int,int,int);
+int main()
+{
+	int n,b,p=0,s=1;
+	cin >> n;
+	cout << endl;
+	cin >> b;
+	cout<<baza(n, b,p,s);
+}
+int baza(int n, int b,int p,int s)
+{
+		int c = n % b;
+		p = c * s + p;
+		s *= 10;
+		n = n/b;
+		if (n ) return baza(n, b, p, s);
+		else return p;
+}
+
+	

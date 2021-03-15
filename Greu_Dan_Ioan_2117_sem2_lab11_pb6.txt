@@ -1,0 +1,126 @@
+//6. Definiti o clasa numita Record care stocheaza informatiile aferente unei melodii(artist, titlu,
+//	durata).O clasa abstracta(Playlist) contine ca variabila privata un pointer spre un sir de
+//	obiecte de tip inregistrare.In constructor se aloca memorie pentru un numar de inregistrari
+//	definit de utilizator.Clasa contine metode accesor si mutator pentru datele componente ale
+//	unei inregistrari si o metoda pur virtuala cu un parametru(abstracta), care poate ordona sirul
+//	de inregistrari dupa un anumit criteriu codat in valoarea intreaga primita ca parametru
+//	(1 = ordonare dupa titlu, 2 = ordonare dupa artist, 3 = ordonare dupa durata).Intr - o alta clasa
+//	(PlaylistImplementation) derivata din Playlist se implementeaza corpul metodei abstracte de
+//	sortare.
+//	In functia main(), sa se instantieze un obiect din clasa PlaylistImplementation si apoi sa se
+//	foloseasca datele si metodele aferente
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<stdlib.h>
+#include<string.h>
+#include<stdio.h>
+using namespace std;
+class record {
+protected:
+	char* artist;
+	char* durata;
+	char* titlu;
+public:
+	void setartist(const char* s) {
+		artist = new char[strlen(s)];
+		strcpy(artist, s);
+	}
+	void setdurata(const char* s) {
+		durata = new char[strlen(s)];
+		strcpy(durata, s);
+	}
+	void settitlu(const char* s) {
+		titlu = new char[strlen(s)];
+		strcpy(titlu, s);
+	}
+	char* getartist() {
+		return artist;
+	}
+	char* gettitlu() {
+		return titlu;
+	}
+	char* getdurata() {
+		return durata;
+	}
+};
+class playlist :public record {
+protected:
+	record* p[100];
+public:
+	playlist(int n) {
+		char s[100];
+		for (int i=0; i < n; i++) {
+			p[i] = new record;
+			gets_s(s);
+			p[i]->setartist(s);
+			gets_s(s);
+			p[i]->settitlu(s);
+			gets_s(s);
+			p[i]->setdurata(s);
+		}
+	}
+	virtual void sort(int n,int c)=0;
+};
+class playlistinmplementation :public playlist,public record {
+public:
+	playlistinmplementation(int n) :playlist(n) {};
+	void sort(int n, int c) {
+		if (c == 1) {
+			for (int i = 0; i < n - 1; i++) {
+				char s[100];
+				if (strcmp(p[i]->gettitlu(), p[i + 1]->gettitlu()));
+				{
+					char s[100];
+					strcpy(s, p[i]->gettitlu());
+					p[i]->settitlu(p[i + 1]->gettitlu());
+					p[i + 1]->settitlu(s);
+				}
+
+			}
+			for (int i = 0; i < n - 1; i++) {
+				cout << p[i]->gettitlu() << endl;
+			}
+		}
+		else if (n == 2) {
+			for (int i = 0; i < n - 1; i++) {
+				char s[100];
+				if (strcmp(p[i]->getartist(), p[i + 1]->getartist()));
+				{
+					char s[100];
+					strcpy(s, p[i]->getartist());
+					p[i]->setartist(p[i + 1]->getartist());
+					p[i + 1]->setartist(s);
+				}
+
+			}
+			for (int i = 0; i < n - 1; i++) {
+				cout << p[i]->getartist() << endl;
+			}
+		}
+		else if (n == 3) {
+			for (int i = 0; i < n - 1; i++) {
+				char s[100];
+				if (strcmp(p[i]->getdurata(), p[i + 1]->getdurata()));
+				{
+					char s[100];
+					strcpy(s, p[i]->getdurata());
+					p[i]->setdurata(p[i + 1]->getdurata());
+					p[i + 1]->setdurata(s);
+				}
+
+			}
+			for (int i = 0; i < n - 1; i++) {
+				cout << p[i]->getdurata() << endl;
+			}
+		}
+	}
+};
+int main() {
+	int n;
+	cin >> n;
+	playlistinmplementation a(n);
+	int c;
+	cin >> c;
+	a.sort(n, c);
+}
+

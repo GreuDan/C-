@@ -1,0 +1,54 @@
+//5. Definiti o clasa abstracta care contine 3 declaratii de metode pentru concatenarea, intreteserea
+//a doua siruri de caractere si inversarea unui sir de caractere primit ca parametru.O subclasa
+//implementeaza corpurile metodelor declarate in clasa de baza.Instantiati clasa derivata si
+//afisati rezultatele aplicarii operatiilor implementate in clasa asupra unor siruri de caractere
+//citite de la tastatura.Examinati eroarea data de incercarea de a instantia clasa de baza.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<stdio.h>
+#include<stdlib.h>
+using namespace std;
+class abs {
+public:
+	virtual void intreteserea(char s[], char s1[]) = 0;
+	virtual void conatenare(char s[], char s1[]) = 0;
+	virtual void inversare(char s[]) = 0;
+};
+class sub :public abs {
+public:
+	void intreteserea(char s[], char s1[]) {
+		char  a[100];
+		strcpy(a, s);
+		strcpy(s, s1);
+		strcpy(s1, a);
+		puts(s);
+		cout << endl;
+		puts(s1);
+		cout << endl;
+	}
+	void conatenare(char s[], char s1[]) {
+		strcat(s, s1);
+		puts(s);
+		cout << endl;
+	}
+	void inversare(char s[]) {
+		for (int i = 0; i < strlen(s)/2; i++) {
+			char aux;
+			aux = s[i];
+			s[i] = s[strlen(s)-i];
+			s[strlen(s) - i] = aux;
+		}
+		puts(s);
+		cout << endl;
+	}
+};
+int main() {
+	char s[100];
+	char s1[100];
+	gets_s(s);
+	gets_s(s1);
+	sub a;
+	a.conatenare(s, s1);
+	a.intreteserea(s, s1);
+	a.inversare(s);
+}

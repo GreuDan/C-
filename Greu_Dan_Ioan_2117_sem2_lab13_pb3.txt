@@ -1,0 +1,21 @@
+////3. Scrieţi o aplicaţie C++ care citeşte un fişier utilizând metoda read( ). Verificaţi starea
+//sistemului după fiecare operaţie de citire.Numele fişierului se va citi din linia de comandă.
+//Afişaţi pe ecran conţinutul fişierului.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<fstream>
+#include<string.h>
+#include<stdlib.h>
+using namespace std;
+int main(int argf, char* argv[]) {
+    ifstream fin;
+    fin.open(argv[1]);
+    char* s;
+    s = new char[10];
+    int n = 10;
+    while (n != 0) {
+        fin.read(s, 10);
+        cout << s;
+        n--;
+    }
+}

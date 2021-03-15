@@ -1,0 +1,52 @@
+//4. Declarati o clasa Animal, care va contine o metoda pur virtuala, respira( ) si doua metode
+//virtuale manaca() si doarme().Derivati in mod public o clasa Caine si alta Peste, care vor
+//defini metoda pur virtuala, iar clasa Caine va redefini metoda mananca(), iar Peste metoda
+//doarme().Instantiati obiecte din cele doua clase si apelati metodele specifice.Definiti apoi un
+//tablou de tip Animal, care va contine obiecte din clasele derivate, daca e posibil.Daca nu,
+//gasiti o solutie adecvata.
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+class animal {
+public:
+	virtual void respira() = 0;
+	virtual void doarme() {
+		cout << " ";
+	}
+	virtual void mananca() {
+		cout << "s";
+	}
+};
+class caine :public animal {
+public:
+	void respira() {
+		cout << "respira" << endl;
+	}
+	void mananca() {
+		cout << "carnivor" << endl;
+	}
+};
+class peste :public animal {
+public:
+	void respira() {
+		cout << "respira" << endl;
+	}
+	void doarme() {
+		cout << "si pesti dorm" << endl;
+	}
+};
+int main() {
+	caine a;
+	peste p;
+	a.mananca();
+	a.respira();
+	p.respira();
+	p.doarme();
+	int i = 18;
+	animal *d[2];
+	d[0] = new caine;
+	d[1] = new peste;
+	d[1]->respira();
+	d[0]->respira();
+	return 0;
+}

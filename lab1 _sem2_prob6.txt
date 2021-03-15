@@ -1,0 +1,16 @@
+//6. Scrieţi un program care face o codare simplă prin adaugarea la codul ASCII al caracterului o valoare n=3,
+//folosind macro funcții.Exemplu: ‘a’ devine în urma codării ‘d’
+#include<iostream>
+#define SUM(a)  (a)+3;
+using namespace std;
+int main()
+{
+	char a;
+	char b;
+	cin >> a;
+	b = SUM(a);
+	cout << b;
+	return 0;
+}
+
+	

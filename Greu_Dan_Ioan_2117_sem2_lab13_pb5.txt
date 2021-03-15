@@ -1,0 +1,130 @@
+//5. Considerati clasa Fractie care are doua atribute intregi private a si b pentru numarator si
+//numitor, doua metode de tip set() respectiv get() pentru atributele clasei.Declarati o metoda
+//simplifica() care simplifica un obiect Fractie.Definiti un constructor explicit fara parametri
+//care initializeaza a cu 0 si b cu 1, si un constructor explicit cu doi parametri care va verifica
+//posibilitatea definirii unei fractii(b != 0).Definiti un destructor explicit care afiseaza un mesaj.
+//Supraincarcati operatorii de adunare, scadere, inmultire si impartire(+, -, *, / ) a fractiilor
+//folosind metode membre care si simplifica daca e cazul rezultatele obtinute.
+//Supraincarcati operatorii de intrare(>> , extractie) si iesire(<< , insertie) cu functii friend care
+//permit citirea si scrierea obiectelor.Instantiati doua obiecte de tip Fractie cu date citite de la
+//tastatura.Afisati atributele initiale ale obiectelor folosind supraincarcarea operatorului de
+//iesire.Cititi alte 4 obiecte de tip Fractie folosind supraincarcarea operatorului de intrare.
+//Efectuati operatiile implementate prin metodele membre(adunarea si scaderea primelor doua,
+//	respectiv inmultirea si impartirea ultimelor doua), stocand rezultatele in alte 4 obiecte.Afisati
+//	rezultatele.Scrieti intr - un fisier cu numele introdus de la tastatura cele 4 obiecte initiale
+//	precum si rezultatele obtinute, pe randuri diferite
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<fstream>
+#include<string.h>
+using namespace std;
+class Fractie {
+    int a, b;
+public:
+    Fractie();
+    Fractie(int n, int n1);
+    void setx(int n);
+    void sety(int n);
+    int getx();
+    int gety();
+    friend void simplifica(Fractie x);
+    friend Fractie& operator-(Fractie& a, Fractie& b);
+    friend Fractie& operator*(Fractie& a, Fractie& b);
+    friend Fractie& operator/(Fractie& a, Fractie& b);
+    friend Fractie& operator+(Fractie& a, Fractie& b);
+    ~Fractie();
+    friend ostream& operator<<(ostream& os, Fractie& x);
+    friend istream& operator>>(istream& is, Fractie& x);
+};
+ostream& operator<<(ostream& os, Fractie& x) {
+    os << x.getx() << "   " << x.gety() << endl;
+    return os;
+}
+istream& operator>>(istream& is, Fractie& x) {
+    is >> x.a >> x.b;
+    return is;
+}
+void Fractie::setx(int n) {
+    a = n;
+}
+void Fractie::sety(int n) {
+    b = n;
+}
+int Fractie::gety() {
+    return b;
+}
+int Fractie::getx() {
+    return a;
+}
+Fractie::Fractie() {
+    a = 0;
+    b = 1;
+}
+Fractie::Fractie(int n, int n1) {
+    a = n;
+    b = n1;
+    if (b == 0) cin >> b;
+}
+Fractie::~Fractie() {}
+void simplifica(Fractie x) {
+    for (int i = 2; i <= x.b; i++) {
+        if (x.a % i == 0 && x.b % i == 0) {
+            int aux = x.a;
+            x.a = x.a / i;
+            x.b = aux / i;
+        }
+    }
+}
+Fractie& operator+(Fractie& a, Fractie& b) {
+    Fractie x;
+    x.a = a.a + b.a;
+    x.b = a.b + b.b;
+    return x;
+}
+Fractie& operator-(Fractie& a, Fractie& b) {
+    Fractie x;
+    if (a.b > b.b) {
+        x.a = b.a - a.a;
+        x.b = b.b - a.b;
+    }
+    x.a = a.a - b.a;
+    x.b = a.b - b.b;
+    return x;
+
+}
+Fractie& operator*(Fractie& a, Fractie& b) {
+    Fractie x;
+    x.a = a.a * b.a;
+    x.b = a.b * b.b;
+    return x;
+}
+Fractie& operator/(Fractie& a, Fractie& b) {
+    Fractie x;
+    if (a.b > b.b) {
+        x.a = b.a / a.a;
+        x.b = b.b / a.b;
+    }
+    x.a = a.a / b.a;
+    x.b = a.b / b.b;
+    return x;
+}
+int main() {
+    Fractie ob1, ob2;
+    operator>>(cin, ob1);
+    operator>>(cin, ob2);
+    operator<<(cout, ob1);
+    operator<<(cout, ob2);
+    simplifica(ob1);
+    simplifica(ob2);
+    operator<<(cout, ob1);
+    operator<<(cout, ob2);
+    Fractie ob3, ob4, ob5, ob6;
+    ob3 = operator+(ob1, ob2);
+    operator<<(cout, ob3);
+    ob4 = operator-(ob1, ob2);
+    operator<<(cout, ob4);
+    ob5 = operator*(ob1, ob2);
+    operator<<(cout, ob5);
+    ob6 = operator/(ob1, ob2);
+    
+}

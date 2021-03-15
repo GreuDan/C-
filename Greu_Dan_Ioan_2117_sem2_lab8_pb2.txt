@@ -1,0 +1,48 @@
+//2. Scrieţi o aplicaţie C/C++ în care clasa Calculator are un atribut privat memorie_RAM (int) şi o funcție prietenă
+//tehnician_service() care permite modificarea valorii acestui atribut.Functia friend va fi membra intr - o alta
+//clasa, Placa_de_baza care are o componentă denumire_procesor(sir de caractere).Scrieţi codul necesar care
+//permite funcției prietene tehnician_service() să modifice(schimbe) valoarea variabilei denumire_procesor si
+//memorie _RAM.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include<time.h>
+using namespace std;
+class Placa_de_baza;
+class Calculator {
+    int memorie_RAM = 16;
+public:
+    void setr(int n);
+    friend void tehnician_service(const char* s, Calculator a);
+    int getr();
+};
+int Calculator::getr() {
+    return memorie_RAM;
+}
+void Calculator::setr(int n) {
+    memorie_RAM = n;
+}
+class Placa_de_baza {
+    char* denumire_procesor;
+public:
+    void tehnician_service(const char s, Calculator a);
+    char* gets();
+};
+char* Placa_de_baza::gets() {
+    return denumire_procesor;
+}
+//void Placa_de_baza::tehnician_service(const char* s, Calculator a) {
+//    a.memorie_RAM = 16;
+//    denumire_procesor = new char[strlen(s) + 1];
+//    strcpy(denumire_procesor, s);
+//}
+int main() {
+    Calculator o1;
+    o1.setr(16);
+    Placa_de_baza o2;
+    //o2.tehnician_service("AMD Ryzen 5 1600 AF", o1);
+
+
+}
+

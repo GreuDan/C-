@@ -1,0 +1,25 @@
+//3. Calculul celui mai mare divizor comun a două numere folosind o funcţie recursivă
+#include<iostream>
+using namespace std;
+float f1(int, int);
+int main()
+{
+	int n, k;
+	cin >> n;
+	cin>> k;
+	if (k > n) {
+		int aux = n;
+		n = k;
+		k = aux;
+	}
+	if (n == 0 || k == 0) main();
+	cout<<f1(n,k);
+	return 0;
+}
+float f1(int n, int k)
+{
+	if (n > k) return f1(n - k, k);
+	else if (k > n) return f1(n, k - n);
+	else return n;
+}
+	

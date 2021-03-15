@@ -1,0 +1,71 @@
+//8. Pornind de la clasa Complex, ex.4, să se implementeze operațiile de adunare, scădere,
+//înmulțire și împărțire pentru numere complexe prin metode corespunzătoare implementate la
+//alegere în clasă și / sau în afara ei.Testați aceste metode prin instanțierea unor obiecte.
+//Metodele vor returna obiecte de tip Complex si in main() vor fi afisate rezultatele folosind
+//metode accesor.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+using namespace std;
+class complex {
+	int re;
+	int im;
+public:
+	void getxy(int,int);
+	int real();
+	int imag();
+	complex suma(int, int);
+	complex scadere(int, int);
+};
+complex complex::scadere(int n, int n1) {
+	complex c;
+	c.getxy(n, n1);
+	return c;
+}
+complex complex::suma(int n, int n1) {
+	complex c;
+	c.getxy(n, n1);
+	return c;
+}
+void complex::getxy(int n, int n1) {
+	re = n;
+	im = n1;
+}
+int complex::real() {
+	return re;
+}
+int complex::imag() {
+	return im;
+}
+complex produs(complex n, complex n1) {
+	complex c;
+	c.getxy(n.real() * n1.real() -n1.imag() * n.imag(), 0);
+	return c;
+}
+complex inpartire(complex n, complex n1) {
+	complex c;
+	int c1 = n.real(), c2 = n.imag(), c3 = n1.real(), c4 = n1.imag();
+	float n2,n3;
+	if (c4 < 0) c4 = -c4;
+	n2 = (c1 * c3 + c2 * c4) * 1.0 / (c3 * c3 + c4 * c4);
+	n3 = (c1 * c4 + c2 * c3) * 1.0 / (c3 * c3 + c4 * c4);
+	c.getxy(n2, n3);
+	return c;
+}
+int main() {
+	complex n1, n2,n3;
+	int n,nr;
+	cin >> n >> nr;
+	n1.getxy(n, nr);
+	cin >> n >> nr;
+	n2.getxy(n, nr);
+	n3 = n1.suma(n1.real() + n2.real(), n1.imag() + n2.imag());
+	cout << n3.real() << "+i" << n3.imag()<<endl;
+	n3 = n1.scadere(n1.real() - n2.real(), n1.imag() - n2.imag());
+	cout << n3.real() << "+i" << n3.imag() << endl;
+	n3 = produs(n1, n2);
+	cout << n3.real()<<endl;
+	n3 = inpartire(n1, n2);
+	cout << n3.real();
+	return 0;
+}

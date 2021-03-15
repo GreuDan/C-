@@ -1,0 +1,68 @@
+//Definţi o clasă numită Repository care are două variabile private de tip întreg. Clasa mai conţine un constructor
+//explicit vid si unul cu 2 parametri şi o metodă accesor care afişează valorile variabilelor din clasă.Scrieţi o
+//clasă numită Mathemathics, friend cu prima clasă, care implementează operaţiile aritmetice elementare(+, -, *,
+//    / ) asupra variabilelor din prima clasa.Fiecare metoda primeşte ca parametru un obiect al clasei Repository
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include<time.h>
+using namespace std;
+class Mathematics;
+class Repository {
+    int val1;
+    int val2;
+public:
+    Repository(int n, int n1);
+    Repository();
+    void acc();
+    friend class Mathematics;
+};
+Repository::Repository(int n, int n1) {
+    val1 = n;
+    val2 = n1;
+}
+Repository::Repository() {
+    val1 = 10;
+    val2 = 10;
+}
+void Repository::acc() {
+    cout << val1 << endl;
+    cout << val2 << endl;
+}
+class Mathematics {
+public:
+    int adunare(const Repository&);
+    int scadere(const Repository&);
+    float inmultire(const Repository&);
+    float inpartire(const Repository&);
+};
+int Mathematics::adunare(const Repository& ob) {
+    return ob.val1 + ob.val2;
+}
+int Mathematics::scadere(const Repository& ob) {
+    return ob.val1 - ob.val2;
+}
+float Mathematics::inmultire(const Repository& ob) {
+    return (float)ob.val1 * ob.val2;
+}
+float Mathematics::inpartire(const Repository& ob) {
+    return (float)ob.val1 / ob.val2;
+}
+
+int main() {
+    Repository ob1(12, 15);
+    Repository ob2;
+    Mathematics ob3;
+    ob1.acc();
+    cout << "+" << ob3.adunare(ob1);
+    cout << "*" << ob3.inmultire(ob1);
+    cout << "-" << ob3.scadere(ob1);
+    cout << "/" << ob3.inpartire(ob1);
+    cout << endl;
+    ob2.acc();
+    cout << "+" << ob3.adunare(ob2);
+    cout << "*" << ob3.inmultire(ob2);
+    cout << "-" << ob3.scadere(ob2);
+    cout << "/" << ob3.inpartire(ob2);
+}

@@ -1,0 +1,48 @@
+//9. Folosind o funcție recursivă, calculați suma valorilor introduse de la tastatură cu confirmare,
+//adică cereți utilizatorului să indice dacă mai dorește să mai introducă o nouă valoare sau nu.
+//Modificați funcția pentru a calcula și afișa, și media valorilor date de utilizator.Semnalați
+//printr - un mesaj când suma valorilor depășește o anumită valoare prestabilită.
+#include<iostream>
+#include<fstream>
+#include<stdio.h>
+#include<string.h>
+using namespace std;
+int par(int n, int a[],int val,int s);
+int main()
+{
+	int n,a[100],val,s=0;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> a[i];
+	}
+	cin >> val;
+	par(n, a,val,s);
+}
+int par(int n, int a[],int val,int s) {
+    float m = n;
+	n--;
+	if (n >= 0) {
+		cout << "introduci o valoare y/n?" << endl;
+		char c;
+		int aux;
+		cin >> c;
+		if (c == 'y')
+		{
+			cin >> aux; s = aux + a[n] + par(n, a, val, s);
+		}
+		else s=a[n] + par(n, a,val,s);
+	}
+	else return 0;
+	if (float(m / n) > val) {
+		cout << "Valoare depasita";
+		cout << s;
+		return s;
+	}
+	else {
+		cout << "valoare nedepasita";
+			return s;
+	}
+}
+
+	

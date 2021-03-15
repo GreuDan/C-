@@ -1,0 +1,33 @@
+//1. Construiţi o funcţie recursivă care calculează
+//k An
+//, unde n, k sunt citite de la tastatură
+//(
+//	1
+//	1
+//	−
+//	− = 
+//	k
+//	n
+//	k An n A
+//	; la k = 1
+//	k An
+//	este n).Verificati rezultatul folosind si metoda bazata pe
+//	factorial
+#include<iostream>
+using namespace std;
+int f1(int, int);
+int main()
+{
+	int n, k;
+	cin >> n;
+	cin>> k;
+	cout<<f1(n,n-k);
+	return 0;
+}
+int f1(int n, int k)
+{
+	k++;
+	if (k < n)return f1(n, k)*k;
+	else return n;
+}
+	

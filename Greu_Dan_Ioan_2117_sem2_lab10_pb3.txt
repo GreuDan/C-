@@ -1,0 +1,114 @@
+//3. Să se implementeze o clasă de bază cu două atribute protected de tip întreg care conţine o
+//metoda mutator pentru fiecare atribut al clasei, parametri metodelor fiind preluati in main() de
+//la tastatura şi metode accesor pentru fiecare atribut care returneaza atributul specific.Să se
+//scrie o a doua clasă, derivată din aceasta, care implementează operaţiile matematice
+//elementare : +, -, *, / asupra atributelor din clasa de bază, rezultatele fiind memorate in doua
+//atribute protected int(plus, minus) si in alte doua atribute protected double(mul, div) declarate
+//in clasa.Să se scrie o a III - a clasă, derivată din cea de - a doua, care implementează în plus o
+//metoda pentru extragerea rădăcinii pătrate dintr - un număr(mul, rezultat al operatiei * din
+//	prima clasa derivata) şi de ridicare la putere(atât baza(plus, rezultat al operatiei + din prima
+//	clasa derivata) cât şi puterea(minus, rezultat al operatiei - din prima clasa derivata) sunt
+//	trimişi ca parametri).Verificati apelul metodelor considerand obiecte la diferite ierarhii.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include <stdarg.h> 
+using namespace std;
+#include <fstream>     /* va_list, va_start, va_arg, va_end */
+#include<math.h>
+class ambient {
+protected:
+	int i1;
+	int i2;
+public:
+	void seti1(int n);
+	void seti2(int n);
+	int geti1();
+	int geti2();
+};
+void ambient::seti1(int n) {
+	i1 = n;
+}
+void ambient::seti2(int n) {
+	i2 = n;
+}
+int ambient::geti1() {
+	return i1;
+}
+int ambient::geti2(){
+	return i2;
+}
+class dev1 :public ambient {
+protected:
+	int min;
+	int plus;
+	double div;
+	double mul;
+public:
+	int adunare();
+	int scadere();
+	double diferenta();
+	double multiplicare();
+	void afisare();
+};
+int dev1::adunare() {
+	plus = i1 + i2;
+	return plus;
+}
+int dev1::scadere() {
+     min = i1 - i2;
+	 return min;
+}
+double dev1::diferenta() {
+	div = i1 / i2;
+	return div;
+}
+double dev1::multiplicare() {
+	 mul = i1 * i2;
+	 return mul;
+}
+void dev1::afisare() {
+	cout << "+ este: " << adunare()<< endl;
+	cout << "- este: " << scadere() << endl;
+	cout << "* este: " << multiplicare() << endl;
+	cout << "/ este: " << diferenta() << endl;
+}
+class dev2 :public dev1{
+public:
+	double extragere(double mul);
+	double ridicare_la_putere(int plus, int minus);
+};
+double dev2::extragere(double mul) {
+	return (double)sqrt(mul);
+}
+double dev2::ridicare_la_putere(int plus, int minus) {
+	double p = 1;
+	if (minus != 0) {
+		while (minus != 0) {
+			if (minus < 0) {
+				p = 1.0 / plus * p;
+				minus++;
+			}
+			if (minus > 0) {
+				p = plus * p;
+				minus--;
+			}
+		}
+	}
+	return p;
+}
+int main()
+{
+	ambient o1;
+	cout << "introduceti elemente" << endl;
+	int n;
+	cin >> n;
+	o1.seti1(n);
+	cin >> n;
+	o1.seti2(n);
+	cout << "elementele sunt: " << o1.geti1() << " " << o1.geti2() << endl;
+	dev1 o2;
+	o2.afisare();
+	dev2 o3;
+	cout<<"radicalul este "<<o3.extragere(o2.multiplicare())<<endl;
+	cout<<"ridicare la putere "<<o3.ridicare_la_putere(o2.adunare(), o2.scadere())<<endl;
+}

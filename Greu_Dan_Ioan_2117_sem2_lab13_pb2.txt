@@ -1,0 +1,22 @@
+//2. Scrieţi un program care utilizează metoda write( ) pentru a scrie într-un fişier şiruri de
+//caractere.Afişaţi apoi conţinutul fişierului folosind metoda get().Numele fişierului se va citi
+//de la tastatură.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<fstream>
+#include<string.h>
+#include<stdlib.h>
+using namespace std;
+int main() {
+    ofstream fin;
+    fin.open("test.txt");
+    char* s;
+    s = new char[0];
+    fin.write("dwffwac", 7);
+    fin.close();
+    ifstream oin;
+    oin.open("test.txt");
+    oin.read(s, 7);
+    oin >> s;
+    cout << s;
+}

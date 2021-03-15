@@ -1,0 +1,30 @@
+//10. Considerați un șir de n (<=30) de valori întregi. Determinați în mod recursiv și nerecursiv
+//numărul de apariții în șir ale unei valori întregi x cititite de la tastatură.
+#include<iostream>
+#include<fstream>
+#include<stdio.h>
+#include<string.h>
+using namespace std;
+int par(int n, int a[],int val);
+int main()
+{
+	int n,a[30],val,s=0;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> a[i];
+	}
+	cin >> val;
+	cout<<par(n, a,val);
+}
+int par(int n, int a[],int val) {
+	n--;
+	if (n >= 0)
+	{
+		if (a[n] == val) return 1 + par(n, a, val);
+		else return par(n, a, val);
+	}
+	else return 0;
+}
+
+	

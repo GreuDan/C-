@@ -1,0 +1,18 @@
+//7. Să se scrie un program care afişează numele programului, data şi ora compilării şi numărul de linii pe care îl
+//are acest program
+#include<iostream>
+#define _LINE_
+#define _DATE_
+#define _FILE_
+#define _TIME_
+using namespace std;
+int main()
+{
+	cout << __LINE__ << endl;
+	cout << __DATE__ << endl;
+	cout << __FILE__ << endl;
+	cout << __TIME__ << endl;
+	return 0;
+}
+
+	

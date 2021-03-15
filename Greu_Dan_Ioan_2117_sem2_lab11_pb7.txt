@@ -1,0 +1,102 @@
+//7. Scrieţi o aplicaţie C/C++ în care să implementați clasa de bază abstracta PatrulaterAbstract
+//avand ca atribute protected patru instante ale clasei de baza Punct(o pereche de coordonate x
+//	si y, accesori si mutatori) reprezentand coordonatele colturilor patrulaterului.Declarați două
+//	metode membre pur virtuale pentru calculul ariei și perimetrului figurii definite.Derivați clasa
+//	PatrulaterConcret care implementeaza metodele abstracte mostenite si care contine o metoda
+//	proprie care determina daca patrulaterul este patrat, dreptunghi, patrulater oarecare
+//	(convex / concav).În programul principal instanțiați clasa derivata si apelați metodele
+//	implementate.Ariile se vor calcula functie de tipul patrulaterului.La patrulaterul convex
+//	oarecare aria va fi data de urmatoarea formula care exprima aria functie de laturile a, b, c, d,
+//	semiperimetrul s, si de diagonalele p, q:
+//A = sqrt{ (s - a)(s - b)(s - c)(s - d) - 1 / 4(ac + bd + pq)(ac + bd - pq) }.La patrulaterul concav se va
+//determina doar perimetrul.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<stdlib.h>
+#include<string.h>
+#include<stdio.h>
+using namespace std;
+class punct {
+protected:
+	int x;
+	int y;
+public: void setxy(int x1,int x2)
+       {
+	       x = x1;
+	       y = x2;
+       }
+	  int getx() {
+		  return x;
+	  }
+	  int gety() {
+		  return y;
+	  }
+};
+class patrulaterabstract:public punct {
+protected: punct a,b,c,d;
+public:
+	patrulaterabstract() {
+		a.setxy(4,0);
+		b.setxy(8, 0);
+		c.setxy(0, 8);
+		d.setxy(0, 4);
+	}
+	virtual void aria() {};
+	virtual void parametru() {};
+};
+class patrulaterconcret:public patrulaterabstract,public punct{
+public:
+	patrulaterconcret() :patrulaterabstract() {};
+	void aria() {
+		int* p;
+		p = natura();
+		if ((p[1] == p[0] == p[2] == p[3])|| (p[0] == p[2] && p[1] == p[3])) {
+			int s;
+			s=perimetru();
+			int q, r;
+			q = sqrt(p[0] * p[0] + p[1] * p[1]);
+			r = q;
+			float a;
+			a = sqrt(((s - p[0]) * (s - p[1]) * (s - p[2]) * (s - p[3]) - 1) / 4*(p[0] * p[2] + p[1] * p[3] + q * r) * (p[0] * p[2] + p[1] * p[3] + q * r));
+			cout << "aria este: " << a;
+		}
+		if ((p[0] != p[1] && p[0] != p[2]) || (p[1] != p[3] && p[1] != p[2]) || (p[2] != p[3] && p[2] != p[0]) || (p[3] != p[0] && p[3] != p[2]))
+		{
+			int r = perimetru();
+		}
+	}
+	int perimetru() {
+		int* p;
+		p = natura();
+		int r;
+		r = p[0] + p[1] + p[2] + p[3];
+		cout << "perimetrul este:" << p[0]+p[1]+p[2]+p[3] << endl;
+		return r;
+	}
+	int* natura() {
+		int l[4];
+		l[0] = sqrt((b.getx() * b.getx()) - (a.getx() * a.getx()) + ((b.gety() * b.gety()) - (a.gety() * a.gety())));
+		l[1] = sqrt((c.getx() * c.getx()) - (b.getx() * b.getx()) + ((c.gety() * c.gety()) - (b.gety() * b.gety())));
+		l[2] = sqrt((d.getx() * d.getx()) - (c.getx() * c.getx()) + ((d.gety() * d.gety()) - (c.gety() * c.gety())));
+		l[3] = sqrt((a.getx() * a.getx()) - (d.getx() * d.getx()) + ((a.gety() * a.gety()) - (d.gety() * d.gety())));
+		if (l[1] == l[0] == l[2] == l[3]) {
+			cout << "patrat" << endl;
+			return l;
+		}
+		if (l[0] == l[2] && l[1] == l[3]) {
+			cout << "dreptunghi" << endl;
+			return l;
+		}
+		if ((l[0] != l[1] && l[0] != l[2]) || (l[1] != l[3] && l[1] != l[2]) || (l[2] != l[3] && l[2] != l[0]) || (l[3] != l[0] && l[3] != l[2]))
+		{
+			cout << "patrulater concav" << endl;
+			return l;
+		}
+	}
+};
+int main() {
+	patrulaterconcret a;
+	a.aria();
+	return 0;
+}
+

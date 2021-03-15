@@ -1,0 +1,61 @@
+//6. Să se scrie programul care utilizează o clasă numită Calculator şi care are în componenţa sa metodele publice
+//supraincarcate:
+//-int calcul(int x) care returnează pătratul valorii primite;
+//-int calcul(int x, int y) care returnează produsul celor două valori primite;
+//-double calcul(int x, int y, int z) care returnează rezultatul înlocuirii în formula f(x, y, z) = (x - y)(x + z) / 2. a
+//valorilor primite;
+//Programul primeşte din linia de comandă toţi parametrii necesari pentru toate aceste metode ale clasei.
+//Considerați și cazul în care toate aceste metode sunt statice.E posibil să aveți în același timp metode publice
+//statice și non - statice ? Analizati si cazul in care clasa are 3 atribute private de tip int, x, y, z, care sunt
+//modificate cu metode mutator adecvate.Ce trebuie sa modificati pentru a putea efectua operatiile cerute ?
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+using namespace std;
+class Calculator {
+	int x;
+	int y;
+	int z;
+public:
+	Calculator();
+	static int calcul(static float x);
+	int calcul(int x);
+	static int calcul(static float x, static float y);
+	int calcul(int x, int y);
+	static double calcul(static float x, static float y, static float z);
+	double calcul(int x, int y, int z);
+	//putem avea atat metode statice cat si metode non-statice insa tipul de parametrii sa fie diferit
+	//pentru a avea membri privati de tip int denumiti x,y,z trebuie sa schimbam denumirea parametrilor apelati in interiorul functiei
+};
+int Calculator::calcul(static float x) {
+	return x * x;
+}
+int Calculator::calcul(int x) {
+	return x* x;
+}
+int Calculator::calcul(static float x, static float y) {
+	return x * y;
+}
+int Calculator::calcul(int x,int y) {
+	return x * y;
+}
+double Calculator::calcul(static float x, static float y, static float z) {
+	double t = (x - y) * (x - z) / 2.0;
+	return t;
+}
+double Calculator::calcul(int x, int y, int z) {
+	double t = (x-y)*(x-z)/2.0;
+	return t;
+}
+int main(int arcv, char* argv[]){
+	Calculator a;
+	cout << a.calcul(atoi(argv[1])) << endl;
+	cout << a.calcul(atoi(argv[1]), atoi(argv[2])) << endl;
+	cout << a.calcul(atoi(argv[1]), atoi(argv[2]), atoi(argv[3])) << endl;
+	static float x = 3.6, y = 5.1, z = 0.8;
+	cout << a.calcul(x) << endl;
+	cout << a.calcul(x, y) << endl;
+	cout << a.calcul(x, y, z) << endl;
+
+}

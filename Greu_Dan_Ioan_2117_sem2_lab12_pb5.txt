@@ -1,0 +1,68 @@
+//5. Supraîncărcaţi operatorii de extracţie şi de inserţie pentru clasa Complex, în care părţile reale
+//şi imaginare sunt ambele protected de tip real.Derivaţi public o clasă Punct din clasa
+//Complex, adăugând atributul culoare pentru punctul de coordonate x şi y corespunzător părții
+//reale, respectiv imaginare a numărului complex.Supraîncărcaţi din nou aceiași operatori de
+//intrare - ieșire.Instantiati obiecte de tip Complex si Punct si verificati functionalitatea
+//supraincarcarii operatorilor.Asignati un obiect de tip Punct la unul de tip Complex prin
+//upcasting si afisati atributele lui.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+class Complex {
+protected: double x, y;
+public:
+	Complex() {
+		x = 0;
+		y = 0;
+	}
+	Complex(double x0, double y0) {
+		x = x0;
+		y = y0;
+	}
+	friend ostream& operator<<(ostream& os, Complex& ad);
+	friend istream& operator>>(istream& is, Complex& ad);
+};
+ostream& operator<<(ostream& os, Complex& ad) {
+	os << ad.x << '\n' << ad.y << '\n';
+	return os;
+}
+istream& operator>>(istream& is, Complex& ad) {
+	is >> ad.x>> ad.y;
+	return is;
+}
+class Punct :public Complex {
+	char* s;
+public:
+	Punct(const char*a) :Complex() {
+		s = new char[strlen(a)];
+		strcpy(s, a);
+	}
+	friend ostream& operator<<(ostream& os, Punct& ad);
+	friend istream& operator>>(istream& is, Punct& ad);
+};
+ostream& operator<<(ostream& os, Punct& ad) {
+	os << ad.s;
+	return os;
+}
+istream& operator>>(istream& is, Punct& ad) {
+	is >> ad.s;
+	return is;
+}
+int main() {
+	Complex mc(4, 5),n(7,8);
+	Punct a("rosu"),b("albastru");
+	Complex* p = &b;
+	operator<<(cout, mc);
+	operator>>(cin, mc);
+	operator<<(cout, mc);
+	operator<<(cout, n);
+	operator>>(cin, n);
+	operator<<(cout, n);
+	operator<<(cout, a);
+	operator>>(cin, a);
+	operator<<(cout, a);
+	operator<<(cout, *p);
+	operator>>(cin, *p);
+	operator<<(cout, *p);
+	return 0;
+}

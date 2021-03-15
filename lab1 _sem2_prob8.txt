@@ -1,0 +1,49 @@
+//8. Realizaţi o aplicaţie C / C++ care aplică un cod binar(mască) fiecărui element al unui şir printr - o funcţie codare
+//şi invers îl decodează într - o funcţie decodare, folosind funcţii macro.Exemplu: fie caracterul ‘a’, codul mască
+//11001010 :
+//	a.rezultatul codării ar fi :
+//‘a’ -> 97 ASCII ->01100001 SAU EXCLUSIV logic pe biţi
+//codul binar 11001010
+//------------
+//10101011
+//b.decodarea se face :
+//rezultatul codării ->10101011 SAU EXCLUSIV logic pe biţi
+//codul binar 11001010
+//------------
+//01100001 codul ASCII al lui ‘a’
+#include<iostream>
+using namespace std;
+#define CODARE(n,b)  ((n)!=(b))?(1):(0)
+int main()
+{
+	char n1;
+	cin >> n1;
+	int n = n1, a[] = { 1,1,0,0,1,0,1,0 },b[8];
+	int i = 7;
+	while (n !=0)
+	{
+		b[i] = CODARE(n % 2, a[i]);
+		n = n / 2;
+		i--;
+	}
+	b[0] = CODARE(0, a[0]);
+	for (int j = 0; j <= 7; j++){
+		cout << b[j];
+    }
+	cout << endl;
+	 i = 0;
+	while (i<= 7)
+	{
+		b[i] = CODARE(b[i], a[i]);
+		n = n / 2;
+		i++;
+	}
+	for (int j = 0; j <= 7; j++)
+	{
+		cout << b[j];
+	}
+
+	return 0;
+}
+
+	

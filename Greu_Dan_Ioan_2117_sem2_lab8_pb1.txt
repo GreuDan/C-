@@ -1,0 +1,77 @@
+//1. Cons1. Construiţi o aplicaţie în care clasa OraCurenta are ca atribute private ora, minutele şi secundele şi metode
+//publice de tip set / get pentru atributele clasei.Adaugaţi o functie friend clasei prin care să se poată copia
+//conţinutul unui obiect OraCurenta dat ca si parametru, într - un alt obiect instanţă a aceleiaşi clase care va fi
+//returnat de functie, ora fiind insa modificata la Greenwich Mean Time.Utilizati timpul curent al calculatorului
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include<time.h>
+#define EET (+3)
+using namespace std;
+class ORC {
+    int ora;
+    int min;
+    int sec;
+public:
+    void seto(int x);
+    void setm(int x);
+    void sets(int x);
+    int geto();
+    int gets();
+    int getm();
+    friend ORC copyme(ORC);
+};
+void ORC::seto(int x)
+{
+    ora = x;
+}
+void ORC::setm(int x)
+{
+    min = x;
+}
+void ORC::sets(int x)
+{
+    sec = x;
+}
+int ORC :: geto() {
+    return ora;
+}
+int ORC::getm() {
+    return min;
+}
+int ORC::gets() {
+    return sec;
+}
+ORC copyme(ORC x) {
+    time_t rawtime;
+    struct tm* ptm;
+
+    time(&rawtime);
+
+    ptm = gmtime(&rawtime);
+
+    class ORC b;
+    b.seto(x.geto());
+    b.setm(x.getm());
+    b.sets(x.gets());
+    b.seto(ptm->tm_hour+EET);
+    b.setm(ptm->tm_min);
+    b.sets(ptm->tm_sec);
+    return b;
+}
+int main() {
+   
+    class ORC a, b;
+    int n;
+    cin >> n;
+    a.seto(n);
+    cin >> n;
+    a.setm(n);
+    cin >> n;
+    a.sets(n);
+    b=copyme(a);
+    cout << b.geto() <<endl<< b.getm()<<endl << b.gets();
+
+}
+

@@ -1,0 +1,39 @@
+//1. Implementaţi metoda bulelor (Bubble-Sort) care foloseşte un indicator flag şi optimizează ciclul interior. Se
+//cere atât scrierea funcţiei, cât şi partea de program care face citirea şi afişarea şirului iniţial şi a celui ordonat.
+#include<iostream>
+#include<fstream>
+#include<stdio.h>
+#include<string.h>
+using namespace std;
+void SortBubble(int* p, int n);
+int main()
+{
+	int n,a[100],*p;
+	p = a;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cin >> a[i];
+	}
+	for (int i = 0; i < n; i++) {
+		cout << a[i] << " ";
+	}
+	cout << endl;
+	SortBubble(p, n);
+	for (int i = 0; i < n; i++) {
+		cout << a[i] << " ";
+	}
+}
+void SortBubble(int* p, int n)
+{
+	int i, j, temp;
+	for (i = 0; i < n; i++) {
+		for (j = n - 1; j >= i; j--) {
+			if (p[j - 1] > p[j]) {
+				temp = p[j];
+				p[j] = p[j - 1];
+				p[j - 1] = temp;
+			}
+		}
+	}
+}
+	

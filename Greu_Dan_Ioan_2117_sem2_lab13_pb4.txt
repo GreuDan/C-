@@ -1,0 +1,33 @@
+//4. Scrieți o aplicație C++ în care deschideți un fișier în mod binar pentru citire. Afișați un mesaj
+//corespunzator dacă fișierul nu a fost creat în prealabil și cereți reintroducerea numelui
+//fișierului.Presupunând că în fișierul deschis există înregistrări de tip agendă(nume, localitate,
+//	număr de telefon), utilizați supraîncărcarea operatorilor de inserție și extracție pentru afisarea
+//	pe ecran a conținutului fișierului
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<fstream>
+#include<string.h>
+using namespace std;
+istream& operator>>(istream& os, ifstream a);
+ostream& operator<<(ostream& os, ifstream a);
+int main() {
+	char s[100];
+	ifstream fin(s);
+	fin.open(s);
+	while (fin>>s) {
+		operator<<(cout, s);
+	}
+	//operator>>(cin, fin);
+}
+istream& operator>>(istream& os, ifstream a) {
+	char s[100];
+	while (a >> s) {
+		operator<<(cout, s);
+	}
+	return os;
+}
+ostream& operator<<(ostream& os, const char* s) {
+	os << s << endl;
+	return os;
+}

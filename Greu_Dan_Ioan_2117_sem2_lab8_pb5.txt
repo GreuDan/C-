@@ -1,0 +1,24 @@
+//5. Rezolvaţi problema 4 în cazul în care variabila statică este de tip private. Definiţi o metodă accesor care
+//returnează valoarea contorului.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include<time.h>
+using namespace std;
+class Repository {
+static int var_static;
+public:
+    Repository() {
+        var_static ++;
+    };
+    int acc();
+};
+int Repository::var_static = 0;
+int Repository :: acc () {
+    return var_static;
+}
+int main() {
+    Repository ob1,ob3,ob2,ob4,ob5,ob6,ob7;
+    cout<<ob7.acc();
+}

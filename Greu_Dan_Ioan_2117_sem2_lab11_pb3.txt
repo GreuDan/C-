@@ -1,0 +1,61 @@
+//3. Să se scrie un program C++ în care se defineşte o clasă Militar cu o metodă publică virtuală
+//sunt_militar() care indică apartenenţa la armată.Derivaţi clasa Militar pentru a crea clasa
+//Soldat şi clasa Ofiter.Derivaţi mai departe clasa Ofiter pentru a obtine clasele Locotenent,
+//Colonel, Capitan, General.Redefiniti metoda sunt_militar() pentru a indica gradul militar
+//pentru fiecare clasa specifica.Instantiati fiecare clasa Soldat, Locotenent, ..., General, si apelati
+//metoda sunt_militar().
+#include<iostream>
+using namespace std;
+class militar {
+public:
+    virtual void sunt_militar() {
+        cout << "militar in armata romana" << endl;
+    }
+};
+class Soldat:public militar {
+public:
+    void sunt_militar() {
+        cout << "soldat in armata romana" << endl;
+     }
+};
+class ofiter :public militar {
+public:
+    void sunt_militar() {
+        cout << "ofiter in armata romana" << endl;
+    }
+};
+class locotenent :public ofiter {
+public:
+    void sunt_militar() {
+        cout << "locotenet in armata romana" << endl;
+    }
+};
+class general :public ofiter {
+public:
+    void sunt_militar() {
+        cout << "general in armata romana" << endl;
+    }
+};
+class colonel :public ofiter {
+public:
+    void sunt_militar() {
+        cout << "colonel in armata romana" << endl;
+    }
+};
+int main() {
+    militar ion;
+    militar* b;
+    b = &ion;
+    b->sunt_militar();
+    Soldat a;
+    a.sunt_militar();
+    ofiter c;
+    c.sunt_militar();
+    colonel d;
+    d.sunt_militar();
+    locotenent f;
+    f.sunt_militar();
+    general s;
+    s.sunt_militar();
+
+}

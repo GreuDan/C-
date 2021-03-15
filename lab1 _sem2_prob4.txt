@@ -1,0 +1,37 @@
+//4. Folosind supraîncărcarea funcţiilor definiţi trei funcţii cu acelaşi nume dar cu tipuri diferite de parametri (int,int*, int&) care returnează radicalul unei valori.Analizaţi cazul transmiterii parametrilor prin valoare şi ca referinţă. //
+#include<iostream>
+#include<math.h>
+using namespace std;
+float rad(int a, float b);
+float rad(int a,float *b,int*c);
+float rad(int a, float b, float*d);
+int main()
+{
+	int  a,*c;
+	c = &a;
+	float b, *d;
+	d = &b;
+	cout << "introduceti numerele" << endl;
+	cin >> a>>b;
+	cout << "radicalul este:" << endl;
+	cout << rad(a, b) << endl;
+	rad(a,d,c);
+	cout << b<<endl;
+	cout << rad(a, b,d);
+	return 0;
+}
+float rad(int a, float *b)
+{
+	int c = a * a + *b* *b;
+	return sqrt(c);
+}
+float rad(int a, float *b,int *c)
+{
+	*b = sqrt(*b * *b + *c * *c);
+	return *b;
+}
+float rad(int a, float b,float*d)
+{
+	b=sqrt(a*a +*d**d);
+	return b;
+}

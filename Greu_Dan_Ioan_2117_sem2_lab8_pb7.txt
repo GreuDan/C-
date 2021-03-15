@@ -1,0 +1,68 @@
+///7. La un chioșc se vând ziare, reviste și carți. Fiecare publicație are un nume, o editură, un număr de pagini, un
+//număr de exemplare per publicație și un preț fără TVA.Scrieți clasa care modelează publicațiile.Adăugați un
+//membru static valoare_tva(procent) și o metodă statică pentru modificarea valorii TVA - ului.Să se calculeze
+//suma totală cu TVA pe fiecare tip de publicație(ziare, reviste și carți) și prețul mediu pe pagina la fiecare
+//publicație în parte.Modificați TVA - ul și refaceți calculele.Afișați editurile ordonate în funcție de încasări.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include<time.h>
+#include<math.h>
+using namespace std;
+class Punct {
+    char* s;
+    char* s1;
+    int p;
+    int p1;
+    float p2;
+    static float valoare_tva;
+public:
+    Punct(const char* z,const char* x, int c, int v, int b);
+    static void w(Punct this_) {
+        valoare_tva = this_.p2 * valoare_tva;
+    }
+    float getpmed();
+    float getp2();
+    float gets();
+    char* acc();
+};
+char* Punct::acc() {
+    return s;
+}
+float Punct::valoare_tva = 0.19;
+float Punct::gets() {
+    return (p2 * 1.0 + p2 * valoare_tva * 1.0) * p2;
+}
+float Punct::getpmed() {
+    return (p2 * 1.0 + p2 * valoare_tva * 1.0) / p;
+}
+float Punct::getp2() {
+    return (p2 * 1.0 + p2 * valoare_tva * 1.0);
+}
+Punct::Punct(const char* z, const char* x, int c, int v, int b) {
+    s = new char[strlen(z) + 1];
+    strcpy(s, z);
+    s1 = new char[strlen(x) + 1];
+    strcpy(s1, x);
+    p = c;
+    p1 = v;
+    p2 = b;
+}
+int main() {
+    Punct ob1("dasa", "ras", 20, 50, 2.8), ob2("ffas", "rfewf", 45, 80, 9.7);
+    cout << "preturi inainte de modificare:" << endl;
+    cout << "suma totala" << ob1.getp2() << endl << ob1.getpmed() << endl;
+    cout << "suma totala" << ob2.getp2() << endl << ob2.getpmed() << endl;
+    ob1.w(ob1);
+    ob2.w(ob2);
+    cout << "preturi dupa modificare:" << endl;
+    cout << "suma totala" << ob1.getp2() << endl << ob1.getpmed() << endl;
+    cout << "suma totala" << ob2.getp2() << endl << ob2.getpmed() << endl;
+    if (ob1.gets() < ob2.gets()) {
+        cout << ob1.acc() << endl << ob2.acc();
+    }
+    else {
+        cout << ob2.acc() << endl << ob1.acc();
+    }
+}

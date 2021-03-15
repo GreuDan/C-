@@ -1,0 +1,57 @@
+//7. Să se definească clasa Student având ca date membre private: numele (șir de caractere), note (pointer de tip
+//întreg) și nr_note(int).Clasa mai conține un constructor cu parametri, un constructor de copiere, o metoda de
+//supraîncărcare a operatorului de atribuire, o metodă de setare a notelor, o metodă de afișare a atributelor și un
+//destructor.Să se instanțieze obiecte folosind constructorul cu parametri, un alt obiect va fi obtinut folosind
+//constructorul de copiere, afișând de fiecare data atributele obiectului creat.Realizați o operație de copiere a
+//unui obiect în alt obiect, ambele fiind create in prealabil.Afișati rezultatul copierii.Analizati metodele
+//utilizate.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include<stdlib.h>
+using namespace std;
+class Student {
+	char* nume;
+	int* note;
+	int nr_note;
+public:
+	Student(const char*s,int i[],int n);
+	Student(const Student &a);
+	void setnote();
+	void afisare();
+};
+Student::Student(const char* s, int i[], int n) {
+	nume = new char[strlen(s) + 1];
+	strcpy(nume, s);
+	note = i;
+	nr_note = n;
+}
+Student::Student(const Student& a)
+{
+	nume = new char(strlen(a.nume));
+	strcpy(nume, a.nume);
+	note = a.note;
+	nr_note = a.nr_note;
+}
+void Student::setnote() {
+	note = (int*)malloc(sizeof(int) * nr_note);
+	for (int i = 0; i < nr_note; i++) {
+		cin >> *(note+i);
+		cout << endl;
+	}
+}
+void Student::afisare() {
+	cout << "nume student"<< nume<<endl;
+	cout <<"numar note "<< nr_note << endl;
+	cout << "note:  ";
+	for (int i = 0; i < nr_note; i++) {
+			cout << *(note + i)<<", ";
+	}
+}
+int main() {
+	int n[] = { 1,4,5,7,9 };
+	Student a("alex",n, 5), b = a;
+	a.afisare();
+	b.afisare();
+}

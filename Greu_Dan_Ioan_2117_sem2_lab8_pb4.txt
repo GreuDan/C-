@@ -1,0 +1,21 @@
+//4. Scrieţi o aplicaţie C/C++ care defineşte într-o clasă variabila publică contor var_static de tip static întreg.
+//Aceasta se va incrementa în cadrul constructorului.După o serie de instanţieri, să se afişeze numarul de obiecte
+//create(conţinutul variabilei var_static).
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include<time.h>
+using namespace std;
+class Repository {
+public:
+    static int var_static;
+    Repository() {
+        var_static++;
+    };
+};
+int Repository::var_static = 0;
+int main() {
+    Repository ob1, ob3, ob2, ob4, ob5, ob6, ob7;
+    cout << Repository::var_static;
+}

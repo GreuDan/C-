@@ -1,0 +1,49 @@
+//4. Definiţi o clasă numita Triangle care are 3 atribute protected pentru laturi si o metoda care
+//calculează perimetrul unui triunghi ale cărui laturi sunt citite de la tastatura(folosite de un
+//	constructor adecvat) şi apoi o clasă derivata in mod public din Triangle, Triangle_extended,
+//	care în plus, calculează şi aria triunghiului.Folosind obiecte din cele doua clase apelati
+//	metodele specifice.Verificati inainte de instantiere posibilitatea definirii unui triunghi.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<stdio.h>
+#include<cmath>
+using namespace std;
+class triangle {
+protected: float l1, l2, l3;
+public:
+	triangle(float n1, float n2, float n3);
+	void perimetru();
+};
+void triangle::perimetru() {
+	cout << "Perimetrul este: " << l1 + l2 + l3<<endl;
+}
+triangle::triangle(float n1, float n2, float n3) {
+	l1 = n1;
+	l2 = n2;
+	l3 = n3;
+}
+class triangle_extended :public triangle {
+public:
+	triangle_extended(float a, float b, float c) :triangle(a, b, c) {};
+	void aria();
+};
+void triangle_extended::aria() {
+	float p = (l1 + l2 + l3);
+	p += (l1 + l2) * (l3 + l1) * (l2 + l3);
+	cout <<"aria este "<< sqrt(p) << endl;
+}
+int main() {
+	float a, b, c;
+	cout << "introduceti elemente: " << endl;
+	cin >> a >> b >> c;
+	if (!((a > 0) && (b > 0) && (c > 0) && ((a + b > c) || (a + c > b) || (b + c > a)))) { 
+    cout <<  " laturile nu formeaza un  triunghi" << endl; 
+	main();
+	}
+	triangle o(a, b, c);
+	triangle_extended o1(a,b,c);
+	o.perimetru();
+	o1.aria();
+
+
+}

@@ -1,0 +1,53 @@
+//6. Scrieţi o aplicaţie C/C++ în care să implementați clasa Punct cu atributele private x si y. Implementați o funcție
+//friend care să calculeze aria și perimetrul a doua forme geometrice definite de două puncte, considerând că
+//aceasta are doua puncte ca si parametrii P0(x0, y0) și P1(x1, y1).Adăugați funcției un parametru întreg figura
+//prin care să indicați cele doua figuri geometrice ce sunt definite de punctele(x0, y0) si(x1, y1).Astfel, pentru
+//un cerc, figura = 1, coordonatele(x0, y0) și(x1, y1) vor reprezenta două puncte complementare pe cerc
+//(diametrul).Dacă este triunghi dreptunghic, punctele definesc ipotenuza iar figura va fi = 2; Celelalte laturi ale
+//triunghiului se vor determina pornind de la cele doua puncte.Coordonatele punctelor si apoi selecția figurii
+//geometrice se va realiza introducând de la tastatura parametrii.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include<time.h>
+#include<math.h>
+#define PHI 3.14
+using namespace std;
+class Punct {
+int x;
+int y;
+public:
+    void setxy(int m, int n);
+    friend void a_and_p(Punct a, Punct b,int figura);
+};
+void Punct::setxy(int m, int n) {
+    x = m;
+    y = n;
+}
+void a_and_p(Punct a, Punct b, int figura) {
+    if (figura == 1) {
+        cout << "aria este:" << (float)PHI * ((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2) / 4.0<<endl;
+        cout << "parametrul este:" << sqrt((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2) * PHI * 2<<endl;
+    }
+    else {
+        float lat = sqrt((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2);
+        float lat2 = sqrt((a.x - (-b.x)) ^ 2 + (a.y - (-b.y)) ^ 2);
+        float lat3 = sqrt((-(a.x) - b.x) ^ 2 + (-(a.y) - b.y));
+        cout << "aria este:" << (lat2*lat3)/2.0<<endl;
+        cout << "parametrul este:" << lat+lat2+lat3<<endl;
+    }
+}
+int main() {
+    Punct a, b;
+    int m, n;
+    cin >> m >> n;
+    cout << endl;
+    a.setxy(m, n);
+    cin >> m >> n;
+    cout << endl;
+    b.setxy(m, n);
+    cout << "Alegeti figura cerc(1),triunghi dreptunghic(2):" << endl;
+    cin >> m;
+    a_and_p(a, b, m);
+}

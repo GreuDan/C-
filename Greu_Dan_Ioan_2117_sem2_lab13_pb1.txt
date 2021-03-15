@@ -1,0 +1,19 @@
+//1. Să se scrie un program care foloseşte metoda seekg( ) pentru poziţionare la mijlocul fişierului
+//si apoi afişează conţinutul fişierului începând cu această poziţie.Numele fişierului se citeste
+//din linia de comandă.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<fstream>
+#include<string.h>
+#include<stdlib.h>
+using namespace std;
+int main() {
+    ifstream fin;
+    fin.open("test.txt");
+    fin.seekg(0, fin.end);
+    int length = fin.tellg();
+    fin.seekg(0, fin.beg);
+    char s[100];
+    fin >> s;
+    cout << s;
+}

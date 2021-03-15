@@ -1,0 +1,33 @@
+//5. Să se scrie programul care implementează functia int myFunction(…), care în funcţie de numărul de parametri
+//primiţi, returnează fie valoarea primită, fie produsul variabilelor de intrare
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include <stdio.h>
+#include <stdarg.h> 
+#include <stdio.h>     
+#include <stdarg.h> 
+using namespace std;
+int myFunction(int n, ...)
+{
+    int i, val,nr=1;
+    va_list vl;
+    va_start(vl, n);
+    nr*=(int) va_arg(vl, int);
+    for (i = 0; i < n; i++)
+    {
+        val = va_arg(vl, int);
+        nr *= val;
+    }
+    va_end(vl);
+    return nr;
+}
+
+int main()
+{
+    int m;
+    m = myFunction(3,7,8,9,91);
+    cout << m<<endl;
+    m = myFunction(0, 7);
+    cout << m;
+    return 0;
+}

@@ -1,0 +1,37 @@
+//2. Calculul
+//k Cn
+//utilizând o funcţie recursivă(
+//	k
+//	n
+//	k
+//	n C
+//	n k
+//	n
+//	C −1
+//	
+//	−
+//	=
+//	; pentru n = 0, k = 0 sau n = k,
+//	k Cn
+//	este 1).Verificati rezultatul folosind si metoda bazata pe factorial
+#include<iostream>
+using namespace std;
+float f1(int, int);
+int main()
+{
+	int n, k;
+	cin >> n;
+	cin>> k;
+	if (n == 0 || k == 0) cout << 1;
+	else if (n == k) cout << 1;
+	if (k > n) main();
+	cout<<f1(n+1,k);
+	return 0;
+}
+float f1(int n, int k)
+{
+	n--;
+	if (n-k==0)return 1;
+	else return f1(n,k)*float(n /float(n - k));
+}
+	

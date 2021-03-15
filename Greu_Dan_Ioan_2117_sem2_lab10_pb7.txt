@@ -1,0 +1,64 @@
+//7. Considerați o clasa de baza Cerc definita printr-un atribut protected raza, care are un
+//constructor cu parametrii si o metoda care determina aria cercului.Considerați o alta clasa de
+//baza Patrat cu un atribut protected latura similar clasei Cerc.Derivați un mod public clasa
+//CercPatrat care are un constructor ce apelează constructorii claselor de baza si o metoda care
+//verifica daca pătratul de latura l poate fi inclus in cercul de raza r.De asemenea clasa derivata
+//determina si perimetrul celor doua figuri geometrice.Instanțiați un obiect din clasa derivata
+//(datele introduse de la tastatura), determinați aria si perimetrul cercului si al pătratului.Afișați
+//daca pătratul cu latura introdusa poate fi inclus in cercul de raza specificat.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<stdio.h>
+#include<string.h>
+#define PHI 3.14
+using namespace std;
+class cerc {
+protected:float r;
+public:
+	cerc(float);
+	float aria();
+};
+float cerc::aria() {
+	return PHI * r *r / 2.0;
+}
+cerc::cerc(float b){
+	r = b;
+}
+class patrat {
+protected:float r;
+public:
+	patrat(float a1);
+	float aria();
+};
+patrat::patrat(float a1) {
+	r = a1;
+}
+float patrat::aria() {
+	return r * r;
+}
+class cercpatrat : public patrat ,public cerc {
+public:
+	cercpatrat(float a, float b) :
+	patrat(b), cerc(a){}
+	void implementare();
+	void perimetru();
+};
+void cercpatrat::implementare() {
+	if (patrat::aria() < cerc :: aria()) cout << "patratul se poate introduce in cerc" << endl;
+	else cout << "patratul nu se poate introduce in cerc" << endl;
+}
+void cercpatrat::perimetru() {
+	float x = cerc::aria();
+	float y = patrat::aria();
+	cout << "perimetru cerc" << x * 4.0 / cerc::r << endl;
+	cout << "perimetru patrat" << 4.0*y / patrat::r<<endl;
+}
+int main() {
+	cout << "introduceti datele derivatei" << endl;
+	int n, m;
+	cin >> n >> m;
+	cercpatrat o1(n, m);
+	o1.implementare();
+	o1.perimetru();
+
+}

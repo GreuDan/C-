@@ -1,0 +1,71 @@
+//9. Declarati o clasa Fractie care are doua atribute intregi de tip private a si b pentru numarator si
+//numitor.Definiti doua metode de tip set() respectiv get() pentru fiecare din atributele clasei.
+//Instantiati doua obiecte de tip Fractie si afisati atributele initiale si cele obtinute dupa
+//folosirea metodelor set().Definiti o metoda simplifica() apelata cu un obiect pentru care au
+//fost apelate metodele de tip set(), care determina divizorii numitorului si numaratorului, ii
+//afiseaza si realizeaza simplificarea fractiei, afisand in metoda si rezultatul obtinut(noua fractie
+//	numarator / numitor)
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+using namespace std;
+class complex {
+	int re;
+	int im;
+public:
+	void getxy(int,int);
+	int real();
+	int imag();
+	void setxy();
+	complex simplifica();
+};
+void complex::setxy() {
+	re = re + 4;
+	im = im + 4;
+}
+complex complex::simplifica() {
+	complex nr;
+	int a = re,b=im,c;
+	if (a > b) c = b;
+	else c = a;
+	for (int i = 1; i < c; i++) {
+		int m = 0;
+		int c1 = 1;
+		if (i > 1)
+		{
+			while (a % i == 0 && b % i == 0) {
+				a = a / i;
+				b = b / i;
+				m++;
+			}
+			while (m != 0) {
+				c1 = c1 * i;
+				m--;
+			}
+			
+		}
+		if(c1!=1) cout << c1 << endl;
+	}
+	nr.getxy(a, b);
+	return nr;
+}
+void complex::getxy(int n, int n1) {
+	re = n;
+	im = n1;
+}
+int complex::real() {
+	return re;
+}
+int complex::imag() {
+	return im;
+}
+int main() {
+	complex n1,n3;
+	int n,nr;
+	cin >> n >> nr;
+	n1.getxy(n, nr);
+	n1.setxy();
+	n3 = n1.simplifica();
+	cout << n3.real() << "  " << n3.imag();
+	return 0;
+}

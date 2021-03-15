@@ -1,0 +1,185 @@
+//6. Considerati clasa Fractie care are doua atribute intregi private a si b pentru numarator si numitor, doua metode
+//de tip set() respectiv get() pentru fiecare din atributele clasei.Declarati o metoda simplifica() care simplifica un
+//obiect Fractie.Considerati o variabila privata statica intreaga icount, care va fi initializata cu 0 si incrementata
+//in cadrul constructorilor din clasa.Definiti un constructor explicit fara parametri care initializeaza a cu 0 si b
+//cu 1, si un constructor explicit cu doi parametri care înainte de apel va verifica posibilitatea definirii unei
+//fractii(b != 0).Definiti un destructor explicit care afiseaza un mesaj si contorul icount.Supraincarcati operatorii
+//de adunare, scadere, inmultire si impartire(+, -, *, / ) a fractiilor folosind functii friend care si simplifica daca e
+//cazul rezultatele obtinute.Instantiati doua obiecte de tip Fractie cu date citite de la tastatura.Afisati atributele
+//initiale ale obiectelor.Printr - o metoda accesor, afisati contorul icount.Efectuati operatiile implementate prin
+//functiile friend, initializand alte 4 obiecte cu rezultatele obtinute.Afisati rezultatele si contorul dupa ultima
+//operatie folosind o metoda accesor adecvata
+//6. Considerati clasa Fractie care are doua atribute intregi private a si b pentru numarator si
+//numitor, doua metode de tip set() respectiv get() pentru atributele clasei.Declarati o metoda
+//simplifica() care simplifica un obiect Fractie returnand o valoare reala.Considerati o
+//variabila privata statica intreaga icount, care va fi initializata cu 0 si incrementata in cadrul
+//constructorilor din clasa.Definiti un constructor explicit fara parametri care initializeaza a cu
+//0 si b cu 1, si un constructor explicit cu doi parametri care va putea fi apelat daca se verifica
+//posibilitatea definirii unei fracții(b != 0).Definiti un destructor explicit care afiseaza un mesaj.
+//Supraincarcati operatorii de adunare, scadere, inmultire si impartire(+, -, *, / ) a fractiilor
+//folosind functii friend fara a simplifica rezultatele obtinute.Instantiati doua obiecte de tip
+//Fractie cu date citite de la tastatura.Afisati atributele initiale ale obiectelor pe linii diferite iar
+//fiecare membru al fractiei va fi afisat pe o latime de 10 digiti, caracter de umplere*, primul
+//numar aliniat la stanga iar al doilea aliniat la dreapta.Printr - o metoda accesor, afisati contorul
+//icount ca si un intreg cu semn, pe 15 pozitii, caracter de umplere $, aliniat la stanga.Efectuati
+//operatiile implementate prin functiile friend, initializand alte 4 obiecte cu rezultatele obtinute.
+//Afisati rezultatele(numarator / numitor) folosind supraincarcarea operatorul de iesire(<< ,
+//	insertie) si contorul(ca si un intreg cu semn, pe 20 de pozitii, caracter de umplere #, aliniat la
+///		dreapta) dupa ultima operatie folosind o metoda accesor adecvata.Simplificati rezultatele
+//	obtinute pe care le veti afisa ca numere reale de tip fixed cu o precizie de 4 digiti la partea
+//	fractionara.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include<stdlib.h>
+using namespace std;
+class Fractie {
+    int a, b;
+    static int icount;
+public:
+    int acc();
+    Fractie();
+    Fractie(int n, int n1);
+    void setx(int n);
+    void sety(int n);
+    int getx();
+    int gety();
+    friend void simplifica(Fractie x);
+    friend Fractie& operator-(Fractie& a, Fractie& b);
+    friend Fractie& operator*(Fractie& a, Fractie& b);
+    friend Fractie& operator/(Fractie& a, Fractie& b);
+    friend Fractie& operator+(Fractie& a, Fractie& b);
+    ~Fractie();
+    friend ostream& operator<<(ostream& os, Fractie& x);
+};
+ostream& operator<<(ostream& os, Fractie& x) {
+    os << x.getx()<<"   "<<x.gety()<<endl;
+    return os;
+}
+void Fractie::setx(int n) {
+    a = n;
+}
+void Fractie::sety(int n) {
+    b = n;
+}
+int Fractie::gety() {
+    return b;
+}
+int Fractie::getx() {
+    return a;
+}
+int Fractie::acc() {
+    return icount;
+}
+Fractie::Fractie() {
+    a = 0;
+    b = 1;
+    icount++;
+}
+Fractie::Fractie(int n, int n1) {
+    a = n;
+    b = n1;
+    if (b == 0) cin >> b;
+    icount++;
+}
+Fractie::~Fractie() {
+    cout << icount;
+    icount = 0;
+}
+int Fractie::icount = 0;
+void simplifica(Fractie x) {
+    for (int i = 2; i <= x.b; i++) {
+        if (x.a % i == 0 && x.b % i == 0) {
+            int aux = x.a;
+            x.a = x.a / i;
+            x.b = aux / i;
+        }
+    }
+}
+Fractie& operator+(Fractie& a, Fractie& b) {
+    Fractie x;
+    x.a = a.a + b.a;
+    x.b = a.b + b.b;
+    return x;
+}
+Fractie& operator-(Fractie& a, Fractie& b) {
+    Fractie x;
+    if (a.b > b.b) {
+        x.a = b.a - a.a;
+        x.b = b.b - a.b;
+    }
+    x.a = a.a - b.a;
+    x.b = a.b - b.b;
+    return x;
+
+}
+Fractie& operator*(Fractie& a, Fractie& b) {
+    Fractie x;
+    x.a = a.a * b.a;
+    x.b = a.b * b.b;
+    return x;
+}
+Fractie& operator/(Fractie& a, Fractie& b) {
+    Fractie x;
+    if (a.b > b.b) {
+        x.a = b.a / a.a;
+        x.b = b.b / a.b;
+    }
+    x.a = a.a / b.a;
+    x.b = a.b / b.b;
+    return x;
+}
+int main() {
+    Fractie ob1, ob2;
+    int n, n1;
+    cin >> n >> n1;
+    ob1.setx(n);
+    ob1.sety(n1);
+    cin >> n >> n1;
+    ob2.setx(n);
+    ob2.sety(n1);
+    cout << ob1.getx() << endl << ob1.gety() << endl;
+    cout << ob2.getx() << endl << ob2.gety() << endl;
+    simplifica(ob1);
+    simplifica(ob2);
+    cout << ob1.getx() << endl << ob1.gety() << endl;
+    cout << ob2.getx() << endl << ob2.gety() << endl;
+    cout.setf(ios::dec);
+    cout.width(15);
+    cout.fill('$');
+    cout.setf(ios::left);
+    cout << ob2.acc();
+    cout.unsetf(ios::dec);
+    cout.unsetf(ios::left);
+    Fractie ob3, ob4, ob5, ob6;
+    ob3 = operator+(ob1, ob2);
+    operator<<(cout, ob3);
+    ob4 = operator-(ob1, ob2);
+    operator<<(cout, ob4);
+    ob5 = operator*(ob1, ob2);
+    operator<<(cout, ob5);
+    ob6 = operator/(ob1, ob2);
+    operator<<(cout, ob6);
+    cout.width(20);
+    cout.fill('#');
+    cout.setf(ios::right);
+    cout << dec<<ob6.acc();
+    cout.unsetf(ios::right);
+    simplifica(ob3);
+    simplifica(ob4);
+    simplifica(ob5);
+    simplifica(ob6);
+    std::cout.setf(std::ios::fixed);
+    std::cout.precision(4);
+    operator<<(cout,ob3);
+    std::cout.setf(std::ios::fixed);
+    std::cout.precision(4);
+    operator<<(cout, ob4);
+    std::cout.setf(std::ios::fixed);
+    std::cout.precision(4);
+    operator<<(cout, ob5);
+    std::cout.setf(std::ios::fixed);
+    std::cout.precision(4);
+    operator<<(cout, ob6);
+}
